@@ -1,0 +1,344 @@
+ /* document.querySelector('.modal__main-container').insertAdjacentHTML('beforeend', `<form class ="submit_form">
+            <label for="title">Цель визита</label><br> 
+            <input type="text" id="title" value=""><br>
+            <label for="text">Краткое описание визита</label><br>
+             <input type="text"  value=""><br>
+           <select size = "2"> <option disabled>Cрочность визита</option>
+           <option value="">обычная</option>
+          <option value="">приортетная</option>
+          <option value="">неотложная</option></select><br>
+            <label for="text">ФИО</label> <br>
+            <input type="text"  value=""><br>
+            <input type="submit" value="Submit">
+            </form>`)*/
+            
+
+            class createCard extends Modal{
+constructor(){
+super()
+
+this._submitButton = document.createElement('input')
+this.select = document.createElement('select')
+
+
+
+
+}
+
+createElements(){
+super.createElements()
+this._submitButton.type = 'submit'
+this.select.size = 3;
+this._submitButton.value = 'Подтвердить';
+this.form.append(this.select)
+this.select.insertAdjacentHTML('beforeend',`
+<option disabled>Выберите доктора</option>
+<option value="">Терапевт</option>
+<option value="">Стоматолог</option>
+<option value="">Кардиолог</option>
+`)
+this.select.addEventListener("change", function(){
+               
+    const l56 = this.options[this.selectedIndex].text;
+       console.log(l56)
+      const submitForm = document.querySelector('.submit_form')
+      if(submitForm){
+          submitForm.remove()
+      }
+   new Visit().render('.submit_form')
+
+     });
+}
+render(selector){
+    this.createElements();
+    
+            document.querySelector(selector).append(this._modalElement);
+}
+
+}
+
+export default createCard;
+
+
+class Visit extends Modal{
+
+    constructor(){
+      super()
+       // this.form = document.createElement('form')
+       // this.submitBtn = document.createElement('input')
+       this._submitButton = document.createElement('input')
+        this.select = document.createElement('select')
+
+    }
+    createElements(){
+      super.createElements()
+        this.form.classList.add('submit_form')
+       
+  //this.submitBtn.type = 'submit'
+
+
+  this._submitButton.type = 'submit'
+this.select.size = 3;
+this._submitButton.value = 'Подтвердить';
+
+this.form.append(this.select)
+this.select.insertAdjacentHTML('beforeend',`
+<option disabled>Выберите доктора</option>
+<option value="">Терапевт</option>
+<option value="">Стоматолог</option>
+<option value="">Кардиолог</option>
+`)
+
+this.select.addEventListener("change", function(){
+               
+  const l56 = this.options[this.selectedIndex].text;
+     console.log(l56)
+ //const labels = document.querySelectorAll('label')
+//if(labels){labels.forEach(label => label.remove())}
+//const inputs = document.querySelectorAll('input')
+//////if(inputs){inputs.forEach(input => input.remove())}
+//const select = document.querySelector('.select')
+//if(select){select.remove()}
+const visitForm = document.querySelector('#visit')
+
+if(visitForm){
+    console.log(visitForm)
+    visitForm.remove()
+
+}
+
+document.querySelector('.modal__main-container').insertAdjacentHTML('beforeend',`<form id ="visit"><label for="title">Цель визита</label><br> 
+        <input type="text" id="title" value=""><br>
+        <label for="text">Краткое описание визита</label><br>
+         <input type="text"  value=""><br>
+       <select size = "2" class = "select"> <option disabled>Cрочность визита</option>
+       <option value="">обычная</option>
+      <option value="">приортетная</option>
+      <option value="">неотложная</option></select><br>
+        <label for="text">ФИО</label> <br>
+        <input type="text"  value=""><br></form>`) 
+
+
+
+        
+   });
+    this.form.append(this._submitButton)
+    }
+
+
+  render(selector){
+    this.createElements();
+    
+    document.querySelector(selector).append(this._modalElement);
+
+  }
+}
+
+export default Visit;
+class Modal{
+
+        constructor() {
+            this._modalElement = document.createElement('div');
+            this._backgroundContainer = document.createElement('div');
+            this._mainContainer = document.createElement('div');
+            this._contentContainer = document.createElement('div');
+            this._buttonContainer = document.createElement('div');
+            this._closeButton = document.createElement('div');
+           // this._submitButton = document.createElement('input')
+          //  this.select = document.createElement('select')
+           // this.form = document.createElement('form')
+        }
+        closeModal() {
+            this._modalElement.remove();
+        }
+    
+       /* submitModal(postId, firstinput, secondinput) {
+            this.form.addEventListener('submit', (event) => {
+    
+                event.preventDefault()
+    
+                const input = document.querySelectorAll('input')
+    
+    
+                firstinput.innerHTML = input[0].value
+                secondinput.innerHTML = input[1].value;
+                fetch(`https://ajax.test-danit.com/api/json/posts/${postId}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        body: input[0].value,
+                        id: 1,
+                        title: input[1].value,
+                        userId: 1
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(json => console.log(json))
+            })
+    
+    
+        }*/
+    
+        createElements() {
+            this._closeButton.classList.add('modal__close');
+           // this._submitButton.type = 'submit'
+           // this.select.size = 3;
+            this._closeButton.innerHTML = 'close';
+          //  this._submitButton.value = 'Подтвердить';
+            this._closeButton.addEventListener('click', this.closeModal.bind(this));
+          // this._mainContainer.append(this.form)
+           // this.form.append(this.select)
+           // this.select.insertAdjacentHTML('beforeend',`
+          //  <option disabled>Выберите доктора</option>
+         //   <option value="">Терапевт</option>
+         //  <option value="">Стоматолог</option>
+          //  <option value="">Кардиолог</option>
+          // `)
+          //  
+            //this.form.append(this._selectButton);
+            this._backgroundContainer.classList.add('modal__background');
+            this._backgroundContainer.addEventListener('click', this.closeModal.bind(this));
+            this._contentContainer.classList.add('modal__content-wrapper');
+            this._buttonContainer.classList.add('modal__button-wrapper');
+            this._mainContainer.classList.add('modal__main-container');
+            this._mainContainer.append(this._contentContainer);
+            this._mainContainer.append(this._buttonContainer);
+            this._mainContainer.append(this._closeButton);
+            this._modalElement.classList.add('modal');
+            this._modalElement.append(this._backgroundContainer);
+            this._modalElement.append(this._mainContainer);
+         //   this.select.addEventListener("change", function(){
+               
+           //  const l56 = this.options[this.selectedIndex].text;
+           //     console.log(l56)
+           //    const submitForm = document.querySelector('.submit_form')
+           //    if(submitForm){
+            //       submitForm.remove()
+           //    }
+           // new Visit().render('.modal__main-container')
+         
+            //  });
+        }
+        render(selector) {
+            this.createElements();
+    
+            document.querySelector(selector).append(this._modalElement);
+    
+        }
+    }
+    
+    
+
+
+
+export default Modal;
+
+
+class VisitCardiologist extends Visit{
+constructor(){
+    super()
+    this.input = document.createElement('input');
+    this.label = document.createElement('label')
+    this.secondInput = document.createElement('input');
+    this.secondLabel = document.createElement('label');
+    
+    this.thirdInput = document.createElement('input')
+    this.thirdLabel = document.createElement('label');
+    
+    this.lastInput = document.createElement('input')
+    this.lastLabel = document.createElement('label');
+    
+}
+createElements(){
+    super.createElements()
+   // this.input.type = 'text'
+   // this.secondInput.type = 'text'
+  //  this.thirdInput.type = 'text'
+   // this.lastInput.type = 'text'
+   // this.input.value = ''
+  //  this.secondInput.value = ''
+  //  this.thirdInput.value = ''
+  //  this.lastInput.value = ''
+   // this.label.innerHTML = 'Ваше обычное давление'
+  //  this.secondLabel.innerHTML = 'Индекс массы тела '
+  //  this.thirdLabel.innerHTML = 'Перенесенные заболевания сердечно сосудистой системы'
+   // this.lastLabel.innerHTML = 'Возраст'
+  //  this.createElements()
+  //  this.form.append(this.label)
+  //  this.form.append(this.input)
+  //  this.form.append(this.secondLabel)
+   // this.form.append(this.secondInput)
+   // this.form.append(this.thirdLabel)
+  //  this.form.append(this.thirdInput)
+  //  this.form.append(this.lastLabel)
+   // this.form.append(this.lastInput)
+   this.form.insertAdjacentHTML('beforeend',`
+   <label for="pressure">Ваше обычное давление</label><br>
+   <input id ="pressure" type ="text" value=""><br>
+   <label for= "weight">Индекс массы тела</label><br>
+   <input id ="weight" type ="text" value=""><br>
+   <label for ="diseases">Перенесенные заболевания сердечно сосудистой системы</label><br>
+   <input  id = "diseases" type ="text" value=""><br>
+   <label for ="age">Возраст</label><br>
+   <input id ="age"  type ="text" value=""><br>
+   `)
+
+}
+render(selector){
+    this.createElements()
+    document.querySelector(selector).append(this.form);
+}
+
+}
+
+export default VisitCardiologist;
+/*class Visit extends Modal{
+
+    constructor(){
+      super()
+        this.form = document.createElement('form')
+        this.submitBtn = document.createElement('input')
+        this._submitButton = document.createElement('input')
+     
+
+    }
+    createElements(){
+      super.createElements()
+        this.form.classList.add('submit_form')
+       
+  this.submitBtn.type = 'submit'
+
+  this._submitButton.type = 'submit'
+
+this._submitButton.value = 'Подтвердить';
+this._mainContainer.append(this.form)  
+
+
+              
+
+
+this.form.insertAdjacentHTML('beforeend',`<label for="title">Цель визита</label><br> 
+        <input type="text" id="title" value=""><br>
+        <label for="text">Краткое описание визита</label><br>
+         <input type="text"  value=""><br>
+       <select size = "2"> <option disabled>Cрочность визита</option>
+       <option value="">обычная</option>
+      <option value="">приортетная</option>
+      <option value="">неотложная</option></select><br>
+        <label for="text">ФИО</label> <br>
+        <input type="text"  value=""><br>`)
+   
+    }
+
+
+  render(selector){
+    this.createElements();
+    
+    document.querySelector(selector).append(this.form);
+  }
+}
+
+export default Visit;*/
+
