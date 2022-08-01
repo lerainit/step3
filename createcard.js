@@ -2,6 +2,8 @@
 import Modal from "./modal.js"
 import Visit from "./visit.js"
 import VisitCardiologist from "./visitCardiologist.js"
+import VisitDentist from "./visitDentist.js"
+import VisitTherapist from "./visitTherapist.js"
 
  export class createCard extends Modal{
   constructor(){
@@ -27,13 +29,16 @@ import VisitCardiologist from "./visitCardiologist.js"
   `)
   this.select.addEventListener("change", function(){
                  
-      const l56 = this.options[this.selectedIndex].text;
-         console.log(l56)
+      const formType = this.options[this.selectedIndex].text;
+         
         const submitForm = document.querySelector('.submit_form')
        if(submitForm){
            submitForm.remove()
        }
-     new VisitCardiologist().render('.modal__main-container')
+       if(formType === 'Кардиолог'){
+     new VisitCardiologist().render('.modal__main-container')}
+     else if(formType === 'Терапевт'){ new VisitTherapist().render('.modal__main-container')}
+     else{ new VisitDentist().render('.modal__main-container')}
   
        });
   }

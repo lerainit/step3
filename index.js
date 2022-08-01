@@ -33,3 +33,5 @@ loginBtn.addEventListener('click',createCards)
 loginBtn.addEventListener('click',createLogin)
 
 
+new Card('Иван Иванов','терапевт','обследование','боль в желудке','срочно').render('.container')
+

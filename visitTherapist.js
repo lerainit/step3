@@ -1,9 +1,25 @@
 import Visit from "./visit.js";
 
 class VisitTherapist extends Visit{
-
-
-
-}
-
-export default VisitTherapist;
+    constructor(){
+        super()
+       
+    }
+    createElements(){
+        super.createElements()
+       
+       this.form.insertAdjacentHTML('beforeend',`
+       <label for="pressure">Возраст</label><br>
+       <input id ="pressure" type ="text" value=""><br>
+      
+       `)
+    
+    }
+    render(selector){
+        this.createElements()
+        document.querySelector(selector).append(this.form);
+    }
+    
+    }
+    
+    export default VisitTherapist;
