@@ -13,7 +13,11 @@ class VisitTherapist extends Visit{
        <input id ="pressure" type ="text" value=""><br>
       
        `)
-    
+       this.submitBtn.addEventListener('click',()=>{
+
+
+        
+    })
     }
     render(selector){
         this.createElements()
