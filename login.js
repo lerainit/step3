@@ -38,7 +38,7 @@ class Login extends Modal{
         this.form.addEventListener('submit', (event) => {
 
             event.preventDefault()
-            localStorage.clear()
+         
 
             const input = document.querySelectorAll('input')
 
