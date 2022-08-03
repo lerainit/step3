@@ -50,7 +50,7 @@ class Login extends Modal{
             const login = async () =>{
              const {status,data} =  await instance.post('/login',{email:input[0].value,password:input[1].value})
                 console.log(data)
-                localStorage.setItem('data',data)
+                localStorage.setItem('token',data)
             }
           login()
            /* fetch("https://ajax.test-danit.com/api/v2/cards/login", {
